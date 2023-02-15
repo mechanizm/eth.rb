@@ -110,6 +110,7 @@ module Eth
         def_delegators :parent, :address, :address=
         def_delegator :parent, :functions
         def_delegator :parent, :constructor_inputs
+        def_delegator :parent, :encode_function_call
         define_method :parent do
           parent
         end
@@ -117,6 +118,14 @@ module Eth
       Eth::Contract.send(:remove_const, class_name) if Eth::Contract.const_defined?(class_name, false)
       Eth::Contract.const_set(class_name, class_methods)
       @class_object = class_methods
+    end
+
+    def encode_function_call(function_name, *args)
+      function_name = function_name.to_sym
+      func = functions.select { |func| func.name.to_sym == function_name }[0]
+      types = func.inputs.map { |i| i.type }
+      encoded_str = Util.bin_to_hex(Eth::Abi.encode(types, args))
+      "0x" + func.signature + (encoded_str.empty? ? "0" * 64 : encoded_str)
     end
 
     private
