@@ -1,3 +1,8 @@
+> [!WARNING]
+> **Archived legacy fork:** This fork is no longer maintained. It is preserved for
+> historical reference and is read-only. Do not use it for new projects; use it
+> at your own risk.
+
 # Ethereum for Ruby
 
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/q9f/eth.rb/Spec)](https://github.com/q9f/eth.rb/actions)
